@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./db");
+const { sequelize } = require("./db");
 const app = express();
 
 app.use(express.json());
@@ -9,9 +9,9 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.use("/api/auth/register",);
-app.use("/api/auth/login",);
-app.use("/api/auth/logout",);
+// app.use("/api/auth/register",);
+// app.use("/api/auth/login",);
+// app.use("/api/auth/logout",);
 // app.use("/api/users",);
 // app.use("/api/seeds",);
 // app.use("/api/events",);
