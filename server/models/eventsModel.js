@@ -1,28 +1,28 @@
 const { sequelize } = require("../db");
-const { Datatypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 module.exports.events = sequelize.define('events', {
     id: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     title: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     description: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     date: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     location: {
-        type: Datatypes.STRING
+        type: Sequelize.STRING
     },
     organiser: {
-        type: Datatypes.STRING
+        type: Sequelize.STRING
     }
 },{
     timestamps: true

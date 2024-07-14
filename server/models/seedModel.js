@@ -1,25 +1,25 @@
 const { sequelize } = require("../db");
-const { Datatypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 module.exports.seeds = sequelize.define('seeds', {
     id: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     type: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     quantity: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     storage_method: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     deposited_by: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 },{

@@ -1,21 +1,21 @@
 const { sequelize } = require("../db");
-const { Datatypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 module.exports.files = sequelize.define('files', {
     id: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     filename: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     contenttype: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     size: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 },{
