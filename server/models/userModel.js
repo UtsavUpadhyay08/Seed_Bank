@@ -1,6 +1,6 @@
 const { sequelize } = require("../db");
 const { Sequelize } = require("sequelize");
-module.exports.user = sequelize.define('users', {
+module.exports.User = sequelize.define('users', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -22,10 +22,6 @@ module.exports.user = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     contact_number: {
         type: Sequelize.STRING,
         allowNull: false
@@ -36,7 +32,13 @@ module.exports.user = sequelize.define('users', {
     },
     farm_size: {
         type: Sequelize.INTEGER
-    }
-},{
-    timestamps: true
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdat'
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedat'
+    },
 });
