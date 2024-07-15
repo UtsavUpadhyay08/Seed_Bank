@@ -1,5 +1,9 @@
 const express = require("express");
 const { register, login } = require("./controllers/authController");
+const userRouter = require("./routers/userRouter");
+const seedRouter = require("./routers/seedRouter");
+const eventsRouter = require("./routers/eventsRouter");
+const fileRouter = require("./routers/fileRouter");
 const app = express();
 
 app.use(express.json());
@@ -12,7 +16,7 @@ app.listen(PORT, () => {
 app.post("/api/auth/register",register);
 app.post("/api/auth/login",login);
 // app.use("/api/auth/logout",);
-// app.use("/api/users",);
-// app.use("/api/seeds",);
-// app.use("/api/events",);
-// app.use("/api/files",);
+app.use("/api/users",userRouter);
+app.use("/api/seeds",seedRouter);
+app.use("/api/events",eventsRouter);
+app.use("/api/files",fileRouter);

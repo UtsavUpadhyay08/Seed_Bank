@@ -4,7 +4,7 @@ const { User } = require("../models/userModel");
 module.exports.register = async function (req, res) {
     try {
         const { username, email, password, role, contact_number, address, farm_size }=req.body;
-        const new_user = User.create({ username, email, password, role, contact_number, address, farm_size });
+        const new_user = await User.create({ username, email, password, role, contact_number, address, farm_size });
         res.status(201).json(new_user);
     } catch (err) {
         res.status(500).json({
