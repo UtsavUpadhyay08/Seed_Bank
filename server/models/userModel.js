@@ -41,4 +41,4 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.DATE,
         field: 'updatedat'
     },
-});
+},{timestamps:true});
