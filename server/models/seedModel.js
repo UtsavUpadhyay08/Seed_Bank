@@ -1,6 +1,6 @@
 const { sequelize } = require("../db");
 const { Sequelize } = require("sequelize");
-module.exports.seeds = sequelize.define('seeds', {
+module.exports.Seed = sequelize.define('seeds', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,10 +16,6 @@ module.exports.seeds = sequelize.define('seeds', {
     },
     storage_method: {
         type: Sequelize.STRING,
-        allowNull: false
-    },
-    deposited_by: {
-        type: Sequelize.INTEGER,
         allowNull: false
     }
 },{
