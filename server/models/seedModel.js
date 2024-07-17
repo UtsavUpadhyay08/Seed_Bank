@@ -17,7 +17,14 @@ module.exports.Seed = sequelize.define('seeds', {
     storage_method: {
         type: Sequelize.STRING,
         allowNull: false
-    }
+    },createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdat'
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedat'
+    },
 },{
     timestamps: true
 });

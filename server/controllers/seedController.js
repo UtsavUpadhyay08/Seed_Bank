@@ -40,10 +40,14 @@ module.exports.putSeed = async function (req, res) {
             return res.status(404).json({ error: "Seed not found" });
         }
         for (let keys in req.body) {
-            if (seed[keys]) seed[keys] = req.body[keys];
+            if (seed.dataValues[keys]) {
+                seed.dataValues[keys] = req.body[keys];
+                seed.changed(seed.dataValues[keys], true);
+            }
         }
-        // console.log(seed);
+        console.log(seed);
         await seed.save();
+        await seed.reload();
         res.status(201).json(seed);
     } catch (err) {
         res.status(500).json({ error: err.message });
