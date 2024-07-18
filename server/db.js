@@ -20,13 +20,4 @@ sequelize.authenticate().then(() => {
     console.log("Unable to connect to database",err);
   });
 
-// sequelize.sync({ alter: true })
-//   .then(() => {
-//     console.log('Database synchronized');
-//   })
-//   .catch(err => {
-//     console.error('Error synchronizing database:', err);
-//   });
-  
-
 module.exports.sequelize = sequelize;

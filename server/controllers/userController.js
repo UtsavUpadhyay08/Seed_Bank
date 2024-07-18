@@ -19,9 +19,12 @@ module.exports.putUser = async function (req, res) {
             return res.status(404).json({ error: "user not found" });
         }
         for (let keys in req.body) {
-            if (user[keys]) user[keys] = req.body[keys];
+            if (user.dataValues[keys]) {
+                user.dataValues[keys] = req.body[keys];
+                user.changed(user.dataValues[keys], true);
+            }
         }
-        console.log(user);
+        // console.log(user);
         await user.save();
         res.status(201).json(user);
     } catch (err) {

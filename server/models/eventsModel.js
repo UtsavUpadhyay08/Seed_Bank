@@ -1,6 +1,6 @@
 const { sequelize } = require("../db");
 const { Sequelize } = require("sequelize");
-module.exports.events = sequelize.define('events', {
+module.exports.Event = sequelize.define('events', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -23,7 +23,15 @@ module.exports.events = sequelize.define('events', {
     },
     organiser: {
         type: Sequelize.STRING
-    }
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdat'
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedat'
+    },
 },{
     timestamps: true
 });
