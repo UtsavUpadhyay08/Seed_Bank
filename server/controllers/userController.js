@@ -26,6 +26,7 @@ module.exports.putUser = async function (req, res) {
         }
         // console.log(user);
         await user.save();
+        await user.reload();
         res.status(201).json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
