@@ -15,9 +15,9 @@ module.exports.Seed = sequelize.define('seeds', {
         allowNull: false
     },
     storage_method: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },createdAt: {
+        type: Sequelize.STRING
+    },
+    createdAt: {
         type: Sequelize.DATE,
         field: 'createdat'
     },

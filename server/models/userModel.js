@@ -10,7 +10,7 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    email: {
+    contact_number: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -22,16 +22,16 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    contact_number: {
-        type: Sequelize.STRING,
-        allowNull: false
+    seed_deposited: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    email: {
+        type: Sequelize.STRING
     },
     address: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    farm_size: {
-        type: Sequelize.INTEGER
     },
     createdAt: {
         type: Sequelize.DATE,

@@ -11,10 +11,10 @@ seedRouter.route("/:id")
     .put(putSeed)         //updates seed if transaction performed
     .delete(deleteSeed);     //delete seed if quantity becomes empty
 
-// seedRouter.route("/deposit")
+// seedRouter.route("/deposit/:id")
 //     .post();       //deposit seed
 
-// seedRouter.route("/retrieve")
+// seedRouter.route("/retrieve/:id")
 //     .post();       //retrieve seed
 
 // seedRouter.route("totaldeposited")
