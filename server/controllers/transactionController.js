@@ -57,3 +57,27 @@ module.exports.retrieveSeeds = async function (req, res) {
         res.status(500).json({ error: err.message });
     }
 }
+
+module.exports.totaldeposited = async function (req, res) {
+    try {
+        const total = await Transaction.sum('quantity', {
+            where: {
+                transactionType: 'deposit',
+                userId: req.params.id
+            }
+        });
+        res.status(201).json({ total });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+}
+
+module.exports.totalretrieved = async function (req, res) {
+    try {
+        const total = await Transaction.sum('quantity', {
+            where: {
+                transactionType: 'retrieve',
+                userId: req.params.id
+            }
+        });
+        res.status(201).json({ total });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+}
