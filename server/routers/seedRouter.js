@@ -1,6 +1,6 @@
 const express = require("express");
 const { getAllSeeds, createSeed, getSeedById, putSeed, deleteSeed } = require("../controllers/seedController");
-const { depositSeeds } = require("../controllers/transactionController");
+const { depositSeeds, retrieveSeeds } = require("../controllers/transactionController");
 const seedRouter = express.Router();
 
 seedRouter.route("/")
@@ -15,8 +15,8 @@ seedRouter.route("/:id")
 seedRouter.route("/deposit/:id")
     .post(depositSeeds);                //deposit seed
 
-// seedRouter.route("/retrieve/:id")
-//     .post();       //retrieve seed
+seedRouter.route("/retrieve/:id")
+    .post(retrieveSeeds);               //retrieve seed
 
 // seedRouter.route("totaldeposited")
 //     .get();
