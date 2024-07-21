@@ -8,6 +8,7 @@ module.exports.Seed = sequelize.define('seeds', {
     },
     type: {
         type: Sequelize.STRING,
+        primaryKey: true,
         allowNull: false
     },
     quantity: {

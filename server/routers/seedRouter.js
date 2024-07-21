@@ -1,5 +1,6 @@
 const express = require("express");
 const { getAllSeeds, createSeed, getSeedById, putSeed, deleteSeed } = require("../controllers/seedController");
+const { depositSeeds } = require("../controllers/transactionController");
 const seedRouter = express.Router();
 
 seedRouter.route("/")
@@ -11,8 +12,8 @@ seedRouter.route("/:id")
     .put(putSeed)         //updates seed if transaction performed
     .delete(deleteSeed);     //delete seed if quantity becomes empty
 
-// seedRouter.route("/deposit/:id")
-//     .post();       //deposit seed
+seedRouter.route("/deposit/:id")
+    .post(depositSeeds);                //deposit seed
 
 // seedRouter.route("/retrieve/:id")
 //     .post();       //retrieve seed
