@@ -81,3 +81,10 @@ module.exports.totalretrieved = async function (req, res) {
         res.status(201).json({ total });
     } catch (err) { res.status(500).json({ error: err.message }); }
 }
+
+module.exports.alltransactions = async function (req, res) {
+    try {
+        const transactions = await Transaction.findAll({ where: { userId:req.params.id } });
+        res.status(201).json({ transactions });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+}
