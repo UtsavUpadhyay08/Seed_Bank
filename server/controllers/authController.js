@@ -42,3 +42,25 @@ module.exports.logout = async function (req, res) {
         res.status(500).json({ error: err.message });
     }
 }
+
+module.exports.protectRoute = async function (req, res, next){
+    try {
+        if (req.cookie.isLoggedIn) {
+            const payload = jwt.verify(req.cookie.isLoggedIn, process.env.JWT_SECRET);
+            if (payload) {
+                const user = await User.findByPk(payload.uid);
+                req.role = user.role;
+                req.id = user.id; 
+                return next();
+            }
+            return res.status(401).json({ error: "Unauthorised" });
+        }
+        const client = req.get["User-Agent"];
+        if (client.includes("Mozilla")) {
+            return res.redirect("/login");
+        }
+        return res.status(401).json({ error: "Operation Not Allowed" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
