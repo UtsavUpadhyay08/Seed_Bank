@@ -1,5 +1,5 @@
 const { sequelize } = require("../db");
-const { Sequelize } = require("sequelize");
+const { Sequelize, SequelizeScopeError } = require("sequelize");
 module.exports.User = sequelize.define('users', {
     id: {
         type: Sequelize.INTEGER,
@@ -41,4 +41,8 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.DATE,
         field: 'updatedat'
     },
+    resetToken: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
 },{timestamps:true});
