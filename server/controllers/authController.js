@@ -28,6 +28,7 @@ module.exports.login = async function (req, res) {
         }
         const token = await jwt.sign({ uid: user.id, username: user.username }, process.env.JWT_SECRET);
         res.cookie("isLoggedIn", token, { httpOnly: true, secure: true });
+        req.role = req.body.role;
         res.status(201).json({ message: "Logged In" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -63,4 +64,11 @@ module.exports.protectRoute = async function (req, res, next){
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+}
+
+module.exports.isAuthorised = function (roles, req, res, next){
+    if (roles.includes(req.role)) {
+        return next();
+    }
+    return res.status(401).json({ error: "Unauthorised" });
 }
