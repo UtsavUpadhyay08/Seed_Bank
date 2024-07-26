@@ -3,7 +3,6 @@ const { register, login, logout } = require("./controllers/authController");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
 const eventsRouter = require("./routers/eventsRouter");
-const fileRouter = require("./routers/fileRouter");
 const app = express();
 
 app.use(express.json());
@@ -19,4 +18,3 @@ app.use("/api/auth/logout",logout);
 app.use("/api/users",userRouter);
 app.use("/api/seeds",seedRouter);
 app.use("/api/events",eventsRouter);
-app.use("/api/files",fileRouter);
