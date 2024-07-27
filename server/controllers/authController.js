@@ -2,13 +2,21 @@ const { where } = require("sequelize");
 const { User } = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const token = require('crypto-token');
+const { sendMail } = require("../utility/nodemailer");
 
 module.exports.register = async function (req, res) {
     try {
         const { username, email, password, role, contact_number, address, farm_size } = req.body;
+        const resetToken = new token(32);
+        const resetLink = `${req.protocol}://${req.headers.host}/verify/${resetToken}`;
+        sendMail("signup", {
+            email: email,
+            link: resetLink
+        });
         const salt = await bcrypt.genSalt();
         const hashed = await bcrypt.hash(password, salt);
-        const new_user = await User.create({ username, email, password:hashed, role, contact_number, address, farm_size });
+        const new_user = await User.create({ username, email, password:hashed, role, contact_number, address, farm_size, resetToken});
         res.status(201).json(new_user);
     } catch (err) {
         res.status(500).json({ error: err.message });

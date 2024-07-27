@@ -17,6 +17,6 @@ eventsRouter.route("/")
 
 eventsRouter.route("/:id")
     .put(putEvent)         //updates event 
-    .delete(deleteEvent);     //deletes event
+    .delete(deleteEvent);    //deletes event
 
 module.exports = eventsRouter;
