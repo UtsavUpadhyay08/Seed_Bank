@@ -10,7 +10,7 @@ module.exports.register = async function (req, res) {
         const { username, email, password, role, contact_number, address, farm_size } = req.body;
         const resetToken = token(32);
         const resetLink = `${req.protocol}://${req.headers.host}/verify/${resetToken}`;
-        console.log(resetToken);
+        // console.log(resetToken);
         sendMail("signup", {
             email: email,
             link: resetLink
@@ -32,6 +32,12 @@ module.exports.login = async function (req, res) {
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });
         }
+        // console.log(req.cookies);
+        // if (!req.cookies.verified) {
+        //     return res.json({
+        //         message: "Please verify your email through the link sent at your email"
+        //     });
+        // }
         const isMatch = await bcrypt.compare(req.body.password, user.password);
         if (!isMatch) {
             return res.status(401).json({ error: "Invalid Credentials" });
@@ -48,6 +54,7 @@ module.exports.login = async function (req, res) {
 module.exports.logout = async function (req, res) {
     try {
         res.cookie("isLoggedIn", {}, { maxAge: 0 });
+        res.cookie("verified", {}, { maxAge: 0 });
         res.status(201).json({ message: "User logged Out" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -56,7 +63,7 @@ module.exports.logout = async function (req, res) {
 
 module.exports.protectRoute = async function (req, res, next){
     try {
-        console.log(req.cookies);
+        // console.log(req.cookies);
         if (req.cookies.isLoggedIn) {
             const payload = jwt.verify(req.cookies.isLoggedIn, process.env.JWT_SECRET);
             if (payload) {

@@ -39,10 +39,9 @@ module.exports.putEvent = async function (req, res) {
         if (!event) {
             return res.status(404).json({ error: "Event not found" });
         }
-        for (let keys in req.body) {
-            if (event.dataValues[keys]) {
-                event.dataValues[keys] = req.body[keys];
-                event.changed(event.dataValues[keys], true);
+        for (let key in req.body) {
+            if (event.dataValues.hasOwnProperty(key)) {
+                event.set(key, req.body[key]);
             }
         }
         // console.log(event);
