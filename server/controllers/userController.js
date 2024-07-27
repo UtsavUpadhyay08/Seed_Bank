@@ -2,26 +2,9 @@ const { User } = require("../models/userModel")
 
 module.exports.verifyemail = async function (req, res) {
     res.cookie("verified", true, { httpOnly: true, secure: true });
-    console.log(req.cookies);
+    // console.log(req.cookies);
     return res.json({
         message: "Email Verified"
-    });
-}
-
-module.exports.resetpassword = async function (req, res) {
-    const user = await User.findOne({
-        where: {
-            resettoken: req.params.token
-        }
-    });
-    if (user.email == req.body.email) {
-        req.verified = true;
-        return res.json({
-            message: "Password Verified"
-        });
-    }
-    return res.json({
-        error: "Action Unauthorised"
     });
 }
 

@@ -4,7 +4,7 @@ const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
 const eventsRouter = require("./routers/eventsRouter");
 const cookieParser = require("cookie-parser");
-const { resetpassword, verifyemail } = require("./controllers/userController");
+const { verifyemail } = require("./controllers/userController");
 const app = express();
 
 app.use(express.json());
@@ -22,4 +22,3 @@ app.use("/api/users",userRouter);
 app.use("/api/seeds",seedRouter);
 app.use("/api/events", eventsRouter);
 app.get("/verify/:token", verifyemail);
-app.get("/reset/:token",resetpassword);
