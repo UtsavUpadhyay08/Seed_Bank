@@ -41,7 +41,7 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.DATE,
         field: 'updatedat'
     },
-    resetToken: {
+    resettoken: {
         type: Sequelize.STRING,
         allowNull: false
     }

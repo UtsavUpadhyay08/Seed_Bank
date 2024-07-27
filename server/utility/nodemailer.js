@@ -9,6 +9,13 @@ module.exports.sendMail = async function (str, data) {
             pass: process.env.PASS
         },
     });
+    transport.verify(function (error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
     var sub, content;
     if (str == "signup") {
         sub = "Verify Password";

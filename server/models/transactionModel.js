@@ -8,11 +8,11 @@ module.exports.Transaction = sequelize.define('seedTransaction', {
         autoIncrement: true
     },
     transactionType: {
-        type: DataTypes.ENUM('deposit', 'retrieve'),
+        type: Sequelize.ENUM('deposit', 'retrieve'),
         allowNull: false,
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
             model: User,

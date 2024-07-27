@@ -8,15 +8,17 @@ const { sendMail } = require("../utility/nodemailer");
 module.exports.register = async function (req, res) {
     try {
         const { username, email, password, role, contact_number, address, farm_size } = req.body;
-        const resetToken = new token(32);
+        const resetToken = token(32);
         const resetLink = `${req.protocol}://${req.headers.host}/verify/${resetToken}`;
+        console.log(resetToken);
         sendMail("signup", {
             email: email,
             link: resetLink
         });
         const salt = await bcrypt.genSalt();
         const hashed = await bcrypt.hash(password, salt);
-        const new_user = await User.create({ username, email, password:hashed, role, contact_number, address, farm_size, resetToken});
+        const new_user = await User.create({ username, email, password:hashed, role, contact_number, address, farm_size, resettoken:resetToken});
+        req.role = role;
         res.status(201).json(new_user);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -74,9 +76,11 @@ module.exports.protectRoute = async function (req, res, next){
     }
 }
 
-module.exports.isAuthorised = function (roles, req, res, next){
-    if (roles.includes(req.role)) {
-        return next();
+module.exports.isAuthorised = function (roles) {
+    return function (req, res, next) {
+        if (roles.includes(req.role)) {
+            return next();
+        }
+        return res.status(401).json({ error: "Unauthorised" });
     }
-    return res.status(401).json({ error: "Unauthorised" });
 }
