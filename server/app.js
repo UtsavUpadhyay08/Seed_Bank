@@ -3,9 +3,11 @@ const { register, login, logout } = require("./controllers/authController");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
 const eventsRouter = require("./routers/eventsRouter");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());;
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
@@ -14,7 +16,7 @@ app.listen(PORT, () => {
 
 app.post("/api/auth/register",register);
 app.post("/api/auth/login",login);
-app.use("/api/auth/logout",logout);
+app.get("/api/auth/logout",logout);
 app.use("/api/users",userRouter);
 app.use("/api/seeds",seedRouter);
 app.use("/api/events",eventsRouter);

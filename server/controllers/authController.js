@@ -56,8 +56,9 @@ module.exports.logout = async function (req, res) {
 
 module.exports.protectRoute = async function (req, res, next){
     try {
-        if (req.cookie.isLoggedIn) {
-            const payload = jwt.verify(req.cookie.isLoggedIn, process.env.JWT_SECRET);
+        console.log(req.cookies);
+        if (req.cookies.isLoggedIn) {
+            const payload = jwt.verify(req.cookies.isLoggedIn, process.env.JWT_SECRET);
             if (payload) {
                 const user = await User.findByPk(payload.uid);
                 req.role = user.role;
