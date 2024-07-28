@@ -2,7 +2,6 @@ const { User } = require("../models/userModel")
 
 module.exports.verifyemail = async function (req, res) {
     res.cookie("verified", true, { httpOnly: true, secure: true });
-    // console.log(req.cookies);
     return res.json({
         message: "Email Verified"
     });
