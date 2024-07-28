@@ -22,10 +22,6 @@ module.exports.User = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    seed_deposited: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
     email: {
         type: Sequelize.STRING
     },
