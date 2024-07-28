@@ -1,7 +1,7 @@
 const { sequelize } = require("../db");
 const { Sequelize } = require("sequelize");
 const { User } = require("./userModel");
-module.exports.Transaction = sequelize.define('seedTransaction', {
+module.exports.Transaction = sequelize.define('seedtransaction', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -9,6 +9,7 @@ module.exports.Transaction = sequelize.define('seedTransaction', {
     },
     transactionType: {
         type: Sequelize.ENUM('deposit', 'retrieve'),
+        field: 'transactiontype',
         allowNull: false,
     },
     userId: {
@@ -20,6 +21,7 @@ module.exports.Transaction = sequelize.define('seedTransaction', {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        field: 'userid'
     },
     type: {
         type: Sequelize.STRING,
@@ -38,5 +40,6 @@ module.exports.Transaction = sequelize.define('seedTransaction', {
         field: 'updatedat'
     },
 },{
-    timestamps: true
+    timestamps: true,
+    tableName: 'seedtransaction'
 });

@@ -7,7 +7,7 @@ module.exports.depositSeeds = async function (req, res) {
     try {
         const { type, quantity } = req.body;
         const userId = req.params.id;
-        const seed = await Seed.findOne({ where: { type, quantity } });
+        const seed = await Seed.findOne({ where: { type } });
         if (seed) {
             seed.quantity += quantity;
             await seed.save({ transaction });
@@ -16,11 +16,12 @@ module.exports.depositSeeds = async function (req, res) {
             await transaction.rollback();
             return res.status(404).json({ message: "Seed Not Found" });
         }
+        // console.log(Transaction);
         await Transaction.create({
             transactionType: 'deposit',
             userId: req.params.id,
-            type,
-            quantity
+            type: type,
+            quantity: quantity
         }, { transaction });
 
         await transaction.commit();
@@ -36,8 +37,20 @@ module.exports.retrieveSeeds = async function (req, res) {
     try {
         const { type, quantity } = req.body;
         const userId = req.params.id;
-        const seed = await Seed.findOne({ where: { type, quantity } });
-        if (!seed) {
+        const seed = await Seed.findOne({ where: { type } });
+        const total = await Transaction.sum('quantity', {
+            where: {
+                transactionType: 'deposit',
+                userId: req.params.id
+            }
+        });
+        const total1 = await Transaction.sum('quantity', {
+            where: {
+                transactionType: 'retrieve',
+                userId: req.params.id
+            }
+        });
+        if (!seed || seed.quantity<quantity || quantity>(total-total1)) {
             throw new Error('Insufficient seeds available for retrieval');
         }
         seed.quantity -= quantity;
@@ -66,7 +79,7 @@ module.exports.totaldeposited = async function (req, res) {
                 userId: req.params.id
             }
         });
-        res.status(201).json({ total });
+        res.status(201).json({ "message":total });
     } catch (err) { res.status(500).json({ error: err.message }); }
 }
 

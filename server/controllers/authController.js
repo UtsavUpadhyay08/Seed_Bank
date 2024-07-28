@@ -69,7 +69,7 @@ module.exports.protectRoute = async function (req, res, next){
             if (payload) {
                 const user = await User.findByPk(payload.uid);
                 req.role = user.role;
-                req.id = user.id; 
+                req.body.id = user.id; 
                 return next();
             }
             return res.status(401).json({ error: "Unauthorised" });
