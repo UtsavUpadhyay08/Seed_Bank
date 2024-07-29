@@ -32,11 +32,11 @@ module.exports.login = async function (req, res) {
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });
         }
-        if (!req.cookies.verified) {
-            return res.json({
-                message: "Please verify your email through the link sent at your email"
-            });
-        }
+        // if (!req.cookies.verified) {
+        //     return res.json({
+        //         message: "Please verify your email through the link sent at your email"
+        //     });
+        // }
         const isMatch = await bcrypt.compare(req.body.password, user.password);
         if (!isMatch) {
             return res.status(401).json({ error: "Invalid Credentials" });
