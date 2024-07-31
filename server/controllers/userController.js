@@ -1,7 +1,10 @@
 const { User } = require("../models/userModel")
 
 module.exports.verifyemail = async function (req, res) {
-    res.cookie("verified", true, { httpOnly: true, secure: true });
+    const user = await User.findOne({ where: { resettoken: req.params.token } });
+    if (!user) return res.json({ message: "No such user found" });
+    user.verified = true;
+    await user.save();
     return res.json({
         message: "Email Verified"
     });
