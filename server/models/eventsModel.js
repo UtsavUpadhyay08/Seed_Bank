@@ -1,4 +1,4 @@
-const { sequelize } = require("../server/db");
+const { sequelize } = require("../db");
 const { Sequelize } = require("sequelize");
 module.exports.Event = sequelize.define('events', {
     id: {

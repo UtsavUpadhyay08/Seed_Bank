@@ -1,4 +1,4 @@
-const { Event } = require("../../abc/eventsModel");
+const { Event } = require("../models/eventsModel");
 
 module.exports.getAllEvents = async function (req, res) {
     try {
