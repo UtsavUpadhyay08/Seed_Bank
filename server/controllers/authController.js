@@ -108,3 +108,19 @@ module.exports.resetpassword = async function (req, res) {
         res.status(500).json({ error: err.message });
     }
 }
+
+module.exports.resetpasswordutil = async function (req, res) {
+    try {
+        const user = User.findOne({ where: { resettoken: req.params.token } });
+        if (!user) return res.json({ message: "Invalid Link" });
+        const salt = await bcrypt.genSalt();
+        const hashed = await bcrypt.hash(req.body.password, salt);
+        const resetToken = token(32);
+        user.password = hashed;
+        user.resettoken = resetToken;
+        await user.save();
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}

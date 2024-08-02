@@ -22,3 +22,4 @@ app.use("/api/users",userRouter);
 app.use("/api/seeds",seedRouter);
 app.get("/api/verify/:token", verifyemail);
 app.use("/api/events", eventsRouter);
+app.post("/api/resetpassword/:token",resetpasswordutil);

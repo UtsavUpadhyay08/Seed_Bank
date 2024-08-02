@@ -1,13 +1,17 @@
 const { User } = require("../models/userModel")
 
 module.exports.verifyemail = async function (req, res) {
-    const user = await User.findOne({ where: { resettoken: req.params.token } });
-    if (!user) return res.json({ message: "Invalid Link" });
-    user.verified = true;
-    await user.save();
-    return res.json({
-        message: "Email Verified"
-    });
+    try {
+        const user = await User.findOne({ where: { resettoken: req.params.token } });
+        if (!user) return res.json({ message: "Invalid Link" });
+        user.verified = true;
+        await user.save();
+        return res.status(201).json({
+            message: "Email Verified"
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 }
 
 module.exports.getUser = async function (req, res) {
