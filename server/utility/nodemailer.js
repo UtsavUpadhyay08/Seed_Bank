@@ -17,7 +17,7 @@ module.exports.sendMail = async function (str, data) {
         }
     });
     var sub, content;
-    if (str == "signup") {
+    if (str == "verify") {
         sub = "Verify Password";
         content = `<h3>Verify your password by clicking below<br>${data.link}</h3>`;
     }

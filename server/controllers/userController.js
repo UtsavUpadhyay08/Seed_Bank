@@ -2,7 +2,7 @@ const { User } = require("../models/userModel")
 
 module.exports.verifyemail = async function (req, res) {
     const user = await User.findOne({ where: { resettoken: req.params.token } });
-    if (!user) return res.json({ message: "No such user found" });
+    if (!user) return res.json({ message: "Invalid Link" });
     user.verified = true;
     await user.save();
     return res.json({

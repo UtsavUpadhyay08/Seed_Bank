@@ -10,8 +10,7 @@ module.exports.register = async function (req, res) {
         const { username, email, password, role, contact_number, address, farm_size } = req.body;
         const resetToken = token(32);
         const resetLink = `${req.protocol}://${req.headers.host}/verify/${resetToken}`;
-        // console.log(resetToken);
-        sendMail("signup", {
+        sendMail("verify", {
             email: email,
             link: resetLink
         });
@@ -89,5 +88,23 @@ module.exports.isAuthorised = function (roles) {
             return next();
         }
         return res.status(401).json({ error: "Unauthorised" });
+    }
+}
+
+module.exports.resetpassword = async function (req, res) {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "User Not Found" });
+        }
+        const resetToken = user.resettoken;
+        const resetLink = `${req.protocol}://${req.headers.host}/api/resetpassword/${resetToken}`;
+        sendMail("reset", {
+            email: user.email,
+            link: resetLink
+        });
+        res.status(201).json({ message: "Link Sent" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 }
