@@ -37,7 +37,6 @@ module.exports.putUser = async function (req, res) {
                 user.set(key, req.body[key]);
             }
         }
-        // console.log(user);
         await user.save();
         await user.reload();
         res.status(201).json(user);
