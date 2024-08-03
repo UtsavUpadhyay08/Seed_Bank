@@ -16,7 +16,6 @@ module.exports.depositSeeds = async function (req, res) {
             await transaction.rollback();
             return res.status(404).json({ message: "Seed Not Found" });
         }
-        // console.log(Transaction);
         await Transaction.create({
             transactionType: 'deposit',
             userId: req.params.id,
