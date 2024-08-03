@@ -44,7 +44,6 @@ module.exports.putEvent = async function (req, res) {
                 event.set(key, req.body[key]);
             }
         }
-        // console.log(event);
         await event.save();
         await event.reload();
         res.status(201).json(event);
