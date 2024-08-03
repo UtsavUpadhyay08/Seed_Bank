@@ -52,7 +52,6 @@ module.exports.login = async function (req, res) {
 module.exports.logout = async function (req, res) {
     try {
         res.cookie("isLoggedIn", {}, { maxAge: 0 });
-        res.cookie("verified", {}, { maxAge: 0 });
         res.status(201).json({ message: "User logged Out" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -61,7 +60,6 @@ module.exports.logout = async function (req, res) {
 
 module.exports.protectRoute = async function (req, res, next){
     try {
-        // console.log(req.cookies);
         if (req.cookies.isLoggedIn) {
             const payload = jwt.verify(req.cookies.isLoggedIn, process.env.JWT_SECRET);
             if (payload) {
@@ -119,6 +117,7 @@ module.exports.resetpasswordutil = async function (req, res) {
         user.password = hashed;
         user.resettoken = resetToken;
         await user.save();
+        await user.reload();
         res.status(201).json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
